@@ -7,7 +7,7 @@ public class BinarySearchTree {
     }
 
     public void insert(int value){
-        Node newNode = new Node(value);
+        Node newNode = new Node(value,null, null);
         if(root==null){
             root = newNode;
             return;
@@ -148,5 +148,88 @@ public class BinarySearchTree {
     public int difference(Node root){
         int result = findMax(root) - findMin(root);
         return result;
+    }
+
+    static Node mergeTrees(Node t1, Node t2)
+    {
+        if (t1 == null)
+            return t2;
+        if (t2 == null)
+            return t1;
+        t1.value += t2.value;
+        t1.left = mergeTrees(t1.left, t2.left);
+        t1.right = mergeTrees(t1.right, t2.right);
+        return t1;
+    }
+
+    //Metodo que ayuda a asingnar un nuevo nodo con los datos dados y pone en null los punteros derecha e izquierda.
+    static Node newNode(int value)
+    {
+        return new Node(value, null, null);
+    }
+
+    //Si tiene arbol binario, imprime sus nodos en inorden.
+    static void inorden(Node node)
+    {
+        if (node == null)
+            return;
+
+        //Primero recorre el hijo izquierdo.
+        inorden(node.left);
+
+    //Despues imprime los datos del nodo.
+        System.out.printf("%d ", node.value);
+
+    //Ahora recorre el hijo derecho.
+        inorden(node.right);
+    }
+
+    /* Given a binary tree, print its nodes according to the
+  "bottom-up" postorder traversal. */
+    void printPostorder(Node node)
+    {
+        if (node == null)
+            return;
+
+        // first recur on left subtree
+        printPostorder(node.left);
+
+        // then recur on right subtree
+        printPostorder(node.right);
+
+        // now deal with the node
+        System.out.print(node.value + " ");
+    }
+
+    /* Given a binary tree, print its nodes in inorder*/
+    void printInorder(Node node)
+    {
+        if (node == null)
+            return;
+
+        /* first recur on left child */
+        printInorder(node.left);
+
+        /* then print the data of node */
+        System.out.print(node.value + " ");
+
+        /* now recur on right child */
+        printInorder(node.right);
+    }
+
+    /* Given a binary tree, print its nodes in preorder*/
+    void printPreorder(Node node)
+    {
+        if (node == null)
+            return;
+
+        /* first print data of node */
+        System.out.print(node.value + " ");
+
+        /* then recur on left sutree */
+        printPreorder(node.left);
+
+        /* now recur on right subtree */
+        printPreorder(node.right);
     }
 }
