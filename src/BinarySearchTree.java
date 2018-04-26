@@ -2,8 +2,8 @@ public class BinarySearchTree {
 
     public static Node root;
 
-    public BinarySearchTree(){
-        this.root = null;
+    BinarySearchTree(){
+        root = null;
     }
 
     public void insert(int value){
@@ -13,7 +13,7 @@ public class BinarySearchTree {
             return;
         }
         Node current = root;
-        Node parent = null;
+        Node parent;
         while(true){
             parent = current;
             if(value<current.value){
@@ -32,7 +32,7 @@ public class BinarySearchTree {
         }
     }
 
-    public boolean delete(int value){
+    public void delete(int value){
         Node parent = root;
         Node current = root;
         boolean isLeftChild = false;
@@ -46,7 +46,7 @@ public class BinarySearchTree {
                 current = current.right;
             }
             if(current ==null){
-                return false;
+                return;
             }
         }
         //Case 1: Node is a leaf
@@ -54,7 +54,7 @@ public class BinarySearchTree {
             if(current==root){
                 root = null;
             }
-            if(isLeftChild ==true){
+            if(isLeftChild){
                 parent.left = null;
             }else{
                 parent.right = null;
@@ -92,7 +92,6 @@ public class BinarySearchTree {
             }
             successor.left = current.left;
         }
-        return true;
     }
 
     /**
@@ -100,7 +99,7 @@ public class BinarySearchTree {
      * @param deleteNode Node that will be deleted
      * @return value that will replace the deleted Node
      */
-    public Node getSuccessor(Node deleteNode){
+    private Node getSuccessor(Node deleteNode){
         Node successsor = null;
         Node successsorParent = null;
         Node current = deleteNode.right;
@@ -125,7 +124,7 @@ public class BinarySearchTree {
         }
     }
 
-    public static int findMin(Node root) {
+    private static int findMin(Node root) {
         if(root == null) {
             System.out.println("Tree is empty");
         }
@@ -135,7 +134,7 @@ public class BinarySearchTree {
         return findMin(root.left);
     }
 
-    public static int findMax(Node root) {
+    private static int findMax(Node root) {
         if(root == null) {
             System.out.println("Tree is empty");
         }
@@ -145,9 +144,8 @@ public class BinarySearchTree {
         return findMax(root.right);
     }
 
-    public int difference(Node root){
-        int result = findMax(root) - findMin(root);
-        return result;
+    public int difference(){
+        return findMax(root) - findMin(root);
     }
 
     static Node mergeTrees(Node t1, Node t2)
@@ -169,67 +167,67 @@ public class BinarySearchTree {
     }
 
     //Si tiene arbol binario, imprime sus nodos en inorden.
-    static void inorden(Node node)
+    static void inOrder(Node node)
     {
         if (node == null)
             return;
 
         //Primero recorre el hijo izquierdo.
-        inorden(node.left);
+        inOrder(node.left);
 
     //Despues imprime los datos del nodo.
         System.out.printf("%d ", node.value);
 
     //Ahora recorre el hijo derecho.
-        inorden(node.right);
+        inOrder(node.right);
     }
 
     /* Given a binary tree, print its nodes according to the
   "bottom-up" postorder traversal. */
-    void printPostorder(Node node)
+    void printPostOrder(Node node)
     {
         if (node == null)
             return;
 
         // first recur on left subtree
-        printPostorder(node.left);
+        printPostOrder(node.left);
 
         // then recur on right subtree
-        printPostorder(node.right);
+        printPostOrder(node.right);
 
         // now deal with the node
-        System.out.print(node.value + " ");
+        System.out.print(" "+node.value + " ");
     }
 
     /* Given a binary tree, print its nodes in inorder*/
-    void printInorder(Node node)
+    void printInOrder(Node node)
     {
         if (node == null)
             return;
 
         /* first recur on left child */
-        printInorder(node.left);
+        printInOrder(node.left);
 
         /* then print the data of node */
-        System.out.print(node.value + " ");
+        System.out.print(" "+node.value + " ");
 
         /* now recur on right child */
-        printInorder(node.right);
+        printInOrder(node.right);
     }
 
     /* Given a binary tree, print its nodes in preorder*/
-    void printPreorder(Node node)
+    void printPreOrder(Node node)
     {
         if (node == null)
             return;
 
         /* first print data of node */
-        System.out.print(node.value + " ");
+        System.out.print(" "+node.value + " ");
 
-        /* then recur on left sutree */
-        printPreorder(node.left);
+        /* then recur on left subtree */
+        printPreOrder(node.left);
 
         /* now recur on right subtree */
-        printPreorder(node.right);
+        printPreOrder(node.right);
     }
 }
